@@ -45,7 +45,7 @@ install:
 	docker-compose exec node yarn install --force
 	docker-compose exec app php artisan key:generate
 	docker-compose exec app php artisan migrate --seed
-	@make up
+	@make restart
 	@echo Install ${APP_NAME} successfully finished!
 
 # Reinstall laravel peoject.

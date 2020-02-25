@@ -1,0 +1,80 @@
+version: "3.7"
+services:
+  app:
+    image: 708u/laravel-alpine:7.4.3-for-develop
+    container_name: ${APP_NAME:-laravel}-app
+    working_dir: "/app"
+    volumes:
+      - "./:/app"
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8080:8080"
+    tty: true
+
+  # If you use the laravel queue worker in your app, you should remove this comment out.
+  # queue-worker:
+  #   image: 708u/laravel-alpine:7.4.3-for-develop
+  #   container_name: ${APP_NAME:-laravel}-queue-worker
+  #   working_dir: "/app"
+  #   volumes:
+  #     - "./:/app"
+  #     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+  #   command: php artisan queue:work
+  #   tty: true
+
+  node:
+    image: node:13.8.0-alpine
+    container_name: ${APP_NAME:-laravel}-node
+    working_dir: "/app"
+    volumes:
+      - "./:/app"
+    tty: true
+
+  asset-watcher:
+    image: node:13.8.0-alpine
+    container_name: ${APP_NAME:-laravel}-asset-watcher
+    working_dir: "/app"
+    volumes:
+      - "./:/app"
+    command: "yarn watch"
+    tty: true
+
+  nginx:
+    image: nginx:1.17.8-alpine
+    container_name: ${APP_NAME:-laravel}-nginx
+    volumes:
+      - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./public:/app/public"
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    tty: true
+
+  mysql:
+    image: mysql:5.7
+    container_name: ${APP_NAME:-laravel}-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root}
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql-store:/var/lib/mysql"
+      - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
+      # Create testing DB
+      # - "./docker/mysql/init/create-testing-db.sql:/docker-entrypoint-initdb.d/create-testing-db.sql"
+
+  redis:
+    image: redis:5.0.7-alpine
+    container_name: ${APP_NAME:-laravel}-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis-store:/data"
+    tty: true
+
+volumes:
+  mysql-store:
+  redis-store:

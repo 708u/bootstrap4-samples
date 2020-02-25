@@ -13,7 +13,7 @@ abstract class DuskTestCase extends BaseTestCase
 
     protected function baseUrl()
     {
-        return 'http://nginx';
+        return config('dusk.host');
     }
 
     /**
@@ -24,6 +24,7 @@ abstract class DuskTestCase extends BaseTestCase
      */
     public static function prepare()
     {
+        // enable compatible chrome Driver.
         // static::startChromeDriver();
     }
 

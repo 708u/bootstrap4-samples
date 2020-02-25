@@ -75,6 +75,12 @@ services:
       - "redis-store:/data"
     tty: true
 
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: ${APP_NAME:-laravel}-selenium
+    ports:
+    - 4444:4444
+
 volumes:
   mysql-store:
   redis-store:

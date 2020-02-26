@@ -5,7 +5,7 @@ services:
     container_name: ${PROJECT:-laravel}-app
     working_dir: "/app"
     volumes:
-      - "./:/app"
+      - "./:/app:cached"
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     ports:
       - "8080:8080"
@@ -27,7 +27,7 @@ services:
     container_name: ${PROJECT:-laravel}-node
     working_dir: "/app"
     volumes:
-      - "./:/app"
+      - "./:/app:cached"
     tty: true
 
   asset-watcher:
@@ -35,7 +35,7 @@ services:
     container_name: ${PROJECT:-laravel}-asset-watcher
     working_dir: "/app"
     volumes:
-      - "./:/app"
+      - "./:/app:cached"
     # For BrowserSync
     ports:
       - "3000:3000"

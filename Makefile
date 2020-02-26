@@ -16,7 +16,8 @@ stop:
 # docker-compose restart
 .PHONY: restart
 restart:
-	docker-compose restart
+	@make stop
+	@make up
 
 # docker-compose down
 .PHONY: down

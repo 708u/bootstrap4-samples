@@ -29,23 +29,15 @@ down:
 destroy:
 	docker-compose down --rmi all --volumes
 
-# Create new laravel application. Do Not execute this command if you've already created it in this directory.
-.PHONY: create-laravel-app
-create-laravel-app:
-	docker run --rm -v ${PWD}:/app 708u/composer:1.9.3 composer create-project --prefer-dist laravel/laravel src
-	cp docker-compose.yml src/ && cp -R docker src/ && cp Makefile src/
-	@echo PROJECT=project-name >> src/.env.example
-	@echo new application succsessfully created in src/.
-
 # Install laravel project from dependencies and initialize environments.
 .PHONY: install
 install:
 	cp .env.example .env
 	docker-compose up -d --build
-	docker run --rm -it -v ${PWD}:/app 708u/composer:1.9.3 composer install
-	docker-compose exec node yarn
+	@make composer-install
+	@make yarn-interface
 	docker-compose exec app php artisan key:generate
-	docker-compose exec app php artisan migrate --seed
+	@make migrate
 	@make restart
 	@echo Install ${APP_NAME} successfully finished!
 
@@ -54,6 +46,14 @@ install:
 reinstall:
 	@make down
 	@make install
+
+# Update dependencies.
+.PHONY: update
+update:
+	@make composer-install
+	@make yarn-install
+	@make db-fresh
+	@make restart
 
 # Attach an app container.
 .PHONY: app
@@ -69,6 +69,21 @@ node:
 .PHONY: composer
 composer:
 	docker run --rm -it -v ${PWD}:/app 708u/composer:1.9.3 bash
+
+# Exec composer install
+.PHONY: composer-install
+composer-install:
+	docker run --rm -it -v ${PWD}:/app 708u/composer:1.9.3 composer install
+
+# Exec yarn install
+.PHONY: yarn-install
+yarn-install:
+	docker-compose exec node yarn
+
+# Exec migrate.
+.PHONY: migrate
+migrate:
+	docker-compose exec app php artisan migrate --seed
 
 # Exec fresh db with seeding.
 .PHONY: db-fresh

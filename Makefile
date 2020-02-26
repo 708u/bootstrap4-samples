@@ -16,7 +16,8 @@ stop:
 # docker-compose restart
 .PHONY: restart
 restart:
-	docker-compose restart
+	@make stop
+	@make up
 
 # docker-compose down
 .PHONY: down
@@ -42,7 +43,7 @@ install:
 	cp .env.example .env
 	docker-compose up -d --build
 	docker run --rm -it -v ${PWD}:/app 708u/composer:1.9.3 composer install
-	docker-compose exec node yarn install --force
+	docker-compose exec node yarn
 	docker-compose exec app php artisan key:generate
 	docker-compose exec app php artisan migrate --seed
 	@make restart

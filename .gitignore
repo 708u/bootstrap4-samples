@@ -1,6 +1,8 @@
 /node_modules
-/public/hot
-/public/storage
+/public/*
+!/public/index.php
+!/public/favicon.ico
+!/public/.htaaccess
 /storage/*.key
 /vendor
 .env

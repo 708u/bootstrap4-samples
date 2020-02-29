@@ -40,7 +40,6 @@ install:
 	docker-compose up -d --build
 	@make composer-install
 	@make yarn-install
-	@make writable
 	docker-compose exec app php artisan key:generate
 	@make migrate
 	@make restart
@@ -49,7 +48,7 @@ install:
 # Reinstall laravel peoject.
 .PHONY: reinstall
 reinstall:
-	@make down
+	@make destroy
 	@make install
 
 # Update dependencies.
@@ -57,7 +56,6 @@ reinstall:
 update:
 	@make composer-install
 	@make yarn-install
-	@make writable
 	@make db-fresh
 	@make restart
 

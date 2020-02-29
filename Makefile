@@ -99,6 +99,20 @@ db-fresh:
 opt-clear:
 	docker-compose exec app php artisan optimize:clear
 
+# Scale queue worker containers. # e.g make worker-scale num=3
+.PHONY: scale-worker
+NUM=1
+ifdef num
+  NUM=${num}
+endif
+scale-worker:
+	docker-compose up -d --scale queue_worker=${NUM}
+
+# restart queue worker container.
+.PHONY: queue-restart
+queue-restart:
+	docker-compose restart queue_worker
+
 # Open tinker interface.
 .PHONY: tinker
 tinker:

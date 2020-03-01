@@ -35,6 +35,8 @@
             <span class="badge badge-dark">Dark</span>
         </div>
         <h1>Pill badges</h1>
+            <p>バッジの角を丸くする</p>
+            <p>{{ "<span class=\"badge badge-pill badge-primary\">Primary</span>" }}</p>
         <div class="container">
             <span class="badge badge-pill badge-primary">Primary</span>
             <span class="badge badge-pill badge-secondary">Secondary</span>
@@ -47,7 +49,7 @@
         </div>
         <h1>Links</h1>
             <p>aタグに適用するとホバー時にフォーカスする</p>
-            {{ "<a href=\"#\" class=\"badge badge-primary\">Primary</a> "}}
+            <p>{{ "<a href=\"#\" class=\"badge badge-primary\">Primary</a> "}}</p>
         <div class="container">
             <a href="#" class="badge badge-primary">Primary</a>
             <a href="#" class="badge badge-secondary">Secondary</a>

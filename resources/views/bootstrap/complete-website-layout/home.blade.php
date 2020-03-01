@@ -78,4 +78,19 @@
         </div>
     </div>
 </div>
+
+{{-- Welcom section --}}
+<div class="container-fluid padding">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4">Built with ease.</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="col-12">
+        <p class="lead">
+            Welcom to my Bootstrap 4 website tutorial! Bootstrap is a free and open-source front-end library with HTML and CSS based designes.
+        </p>
+    </div>
+</div>
 @endsection

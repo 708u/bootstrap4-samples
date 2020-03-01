@@ -20,5 +20,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'bootstrap', 'name' => 'bootstrap.'], function () {
     Route::group(['prefix' => 'components', 'name' => 'components.'], function () {
         Route::view('/alert', 'bootstrap.components.alert');
+        Route::view('/badge', 'bootstrap.components.badge');
     });
 });

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,10 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'bootstrap', 'name' => 'bootstrap.'], function () {
+    Route::group(['prefix' => 'components', 'name' => 'components.'], function () {
+        Route::view('/alert', 'bootstrap.components.alert');
+    });
 });

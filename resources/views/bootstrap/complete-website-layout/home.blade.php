@@ -64,4 +64,18 @@
         </div>
     </div>
 </div>
+
+{{-- Junbotron --}}
+<div class="container-fluid">
+    <div class="row jumbotron">
+        <div class="xol-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+            <p class="lead">A web hosting service allows individuals and organizations to make their website accessible  via the World Wide Web.</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 lo-lg 3 col-xl-2">
+            <a href="#">
+                <button type="button" class="btn btn-outline-secondary">Web Hosting</button>
+            </a>
+        </div>
+    </div>
+</div>
 @endsection

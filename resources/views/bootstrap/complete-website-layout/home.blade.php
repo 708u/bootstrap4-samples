@@ -169,8 +169,44 @@
     <div class="row welcome text-center">
         <div class="col-12">
             <h1 class="display-4">Meet the team</h1>
+            <hr>
         </div>
-        <hr>
+    </div>
+</div>
+
+{{-- Cards --}}
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{asset('img/team1.png')}}" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">John Doe</h4>
+                    <p class="card-text">Johe is an Internet Entrepreneuer with almost 20years of experience.</p>
+                    <a href="#" class="btn btn-outline-secondary">See Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{asset('img/team2.png')}}" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Mary Jo</h4>
+                    <p class="card-text">Mary is a designer with almost 10 years of digital disign experience.</p>
+                    <a href="#" class="btn btn-outline-secondary">See Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{asset('img/team3.png')}}" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Phil Ho</h4>
+                    <p class="card-text">Phil is a developer with over 5 years od web development experience.</p>
+                    <a href="#" class="btn btn-outline-secondary">See Profile</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

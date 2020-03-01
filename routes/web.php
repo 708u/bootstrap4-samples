@@ -17,9 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'bootstrap', 'name' => 'bootstrap.'], function () {
-    Route::group(['prefix' => 'components', 'name' => 'components.'], function () {
-        Route::view('/alert', 'bootstrap.components.alert');
-        Route::view('/badge', 'bootstrap.components.badge');
+// Bootstrap pages.
+Route::name('bootstrap.')->prefix('bootstrap')->group(function () {
+    Route::name('complete-website-layout.')->prefix('complete-website-layout')->group(function () {
+        Route::view('/home', 'bootstrap.complete-website-layout.home')->name('home');
+    });
+
+    // Components samples.
+    Route::name('components.')->prefix('components')->group(function () {
+        Route::view('/alert', 'bootstrap.components.alert')->name('alert');
+        Route::view('/badge', 'bootstrap.components.badge')->name('badge');
     });
 });

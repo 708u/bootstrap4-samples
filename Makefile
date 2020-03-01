@@ -69,6 +69,11 @@ app:
 node:
 	docker-compose exec node sh
 
+# Attach a redis container
+.PHONY: redis
+redis:
+	docker-compose exec redis redis-cli
+
 # Attach a composer container.
 .PHONY: composer
 composer:

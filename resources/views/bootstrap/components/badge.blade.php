@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     <div class="container">
-        @component('layouts.card')
+        @component('layouts.sample-card')
             @slot('header', 'Badge Samples')
             @slot('discription', 'それぞれのhタグに合わせてBadgeの大きさが変わる')
             @slot('cardTitle', "<h1>Example heading <span class=\"badge badge-secondary\">New</span></h1>")
@@ -21,7 +21,7 @@
             @endslot
         @endcomponent
 
-        @component('layouts.card')
+        @component('layouts.sample-card')
             @slot('header', 'Badge in button')
             @slot('discription', 'ボタン内にspanタグでバッチを表示')
             @slot('cardTitle', "<span class=\"badge badge-dark\">1</span>")
@@ -32,7 +32,7 @@
             @endslot
         @endcomponent
 
-        @component('layouts.card')
+        @component('layouts.sample-card')
             @slot('header', 'Contextual variations')
             @slot('discription', "classにbadge名指定で色を変更できる")
             @slot('cardTitle', "<span class=\"badge badge-primary\">Primary</span>")
@@ -48,7 +48,7 @@
             @endslot
         @endcomponent
 
-        @component('layouts.card')
+        @component('layouts.sample-card')
             @slot('header', 'Pill badges')
             @slot('discription', "バッチの角を丸くする")
             @slot('cardTitle', "<span class=\"badge badge-pill badge-primary\">Primary</span>")
@@ -64,7 +64,7 @@
             @endslot
         @endcomponent
 
-        @component('layouts.card')
+        @component('layouts.sample-card')
             @slot('header', 'Links')
             @slot('discription', "aタグに適用するとホバー時にフォーカスする")
             @slot('cardTitle', "<a href=\"#\" class=\"badge badge-primary\">Primary</a> ")
@@ -79,6 +79,5 @@
                 <a href="#" class="badge badge-dark">Dark</a>
             @endslot
         @endcomponent
-
     </div>
 @endsection

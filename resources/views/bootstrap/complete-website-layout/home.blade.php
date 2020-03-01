@@ -131,4 +131,36 @@
         </div>
     </div>
 </div>
+
+{{-- Fix background --}}
+<div>
+    <hr class="my-4">
+    <figure>
+        <div class="fixed-wrap">
+            <div id="fixed"></div>
+        </div>
+    </figure>
+</div>
+
+{{-- Emoji Section --}}
+<button class="fun" data-toggle="collapse" data-target="#emoji">Click here fun
+</button>
+<div id="emoji" class="collapse">
+    <div class="container-fluid padding">
+        <div class="row text-center">
+            <div class="col-sm-6 col-md-3">
+                <img src="{{ asset('img/panda.gif') }}" alt="" class="gif">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <img src="{{ asset('img/poo.gif') }}" alt="" class="gif">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <img src="{{ asset('img/unicorn.gif') }}" alt="" class="gif">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <img src="{{ asset('img/chicken.gif') }}" alt="" class="gif">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

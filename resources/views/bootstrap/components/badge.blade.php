@@ -45,5 +45,18 @@
             <span class="badge badge-pill badge-light">Light</span>
             <span class="badge badge-pill badge-dark">Dark</span>
         </div>
+        <h1>Links</h1>
+            <p>aタグに適用するとホバー時にフォーカスする</p>
+            {{ "<a href=\"#\" class=\"badge badge-primary\">Primary</a> "}}
+        <div class="container">
+            <a href="#" class="badge badge-primary">Primary</a>
+            <a href="#" class="badge badge-secondary">Secondary</a>
+            <a href="#" class="badge badge-success">Success</a>
+            <a href="#" class="badge badge-danger">Danger</a>
+            <a href="#" class="badge badge-warning">Warning</a>
+            <a href="#" class="badge badge-info">Info</a>
+            <a href="#" class="badge badge-light">Light</a>
+            <a href="#" class="badge badge-dark">Dark</a>
+        </div>
     </div>
 @endsection

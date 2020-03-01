@@ -53,7 +53,6 @@
                 <h3>Complete Website Layout</h3>
                 <button type="button" class="btn btn-outline-light btn-lg">VIEW DEMO</button>
                 <button type="button" class="btn btn-primary btn-lg">Get Started</button>
-                v
             </div>
         </div>
         <div class="carousel-item">
@@ -92,5 +91,27 @@
             Welcom to my Bootstrap 4 website tutorial! Bootstrap is a free and open-source front-end library with HTML and CSS based designes.
         </p>
     </div>
+</div>
+
+{{-- Three Columen Section --}}
+<div class="container-fluid padding">
+    <div class="row text-center padding">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <i class="fas fa-code"></i>
+            <h3>HTML５</h3>
+            <p>Built with the latast version of HTML, HTML5.</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <i class="fas fa-bold"></i>
+            <h3>Bootstrap 4</h3>
+            <p>Built with the latast version of Bootstrap, Bootstrap4.</p>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <i class="fab fa-css3"></i>
+            <h3>CSS3</h3>
+            <p>Built with the latast version of CSS, CSS3</p>
+        </div>
+    </div>
+    <hr class="my-4">
 </div>
 @endsection

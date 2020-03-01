@@ -209,4 +209,19 @@
         </div>
     </div>
 </div>
+
+{{-- Two Column section --}}
+<div class="container fluid padding">
+    <div class="row padding">
+        <div class="col-lg-6">
+            <h2>Our Philisophy</h2>
+            <p>We know tha greatness ina disruptive era required bold ambition. ourious talent and a culture that believes we're smarter together.</p>
+            <p>We approach every challenge holistically, tith best-in-class experitise in data, creativity, media, technology, search, social and more. We call this Alchemy. it has the power to build our clients'brands and transform theri business. And while it may seem like magic, we've got it doen to a science.</p>
+            <br>
+        </div>
+        <div class="col-lg-6">
+            <img src="{{ asset('img/bootstrap2.png') }}" class="img-fluid">
+        </div>
+    </div>
+</div>
 @endsection

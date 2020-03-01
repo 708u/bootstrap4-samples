@@ -4,7 +4,7 @@
         {{ $discription }}
     </div>
     <div class="card-body">
-        <p class="card-title bg-dark text-white rounded">{{ $cardTitle }}</p>
+        <p class="card-title bg-dark text-white rounded">html: {{ $cardTitle }}</p>
         {{ $cardContents }}
     </div>
 </div>

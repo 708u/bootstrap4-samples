@@ -69,6 +69,11 @@ app:
 node:
 	docker-compose exec node sh
 
+# Attach a mysql container.
+.PHONY: mysql
+mysql:
+	docker-compose exec mysql bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
+
 # Attach a redis container
 .PHONY: redis
 redis:

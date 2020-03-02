@@ -116,7 +116,7 @@
 </div>
 
 {{-- Two Column Section --}}
-<div class="container fluid padding">
+<div class="container-fluid padding">
     <div class="row padding">
         <div class="col-lg-6">
             <h2>If you build it...</h2>

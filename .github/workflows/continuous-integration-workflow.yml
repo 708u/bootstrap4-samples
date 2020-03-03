@@ -57,7 +57,7 @@ jobs:
         run: composer install
       - name: key generate
         run: php artisan key:generate
-      - name: migrate
-        run: php artisan migrate --seed
+#       - name: migrate
+#         run: php artisan migrate --seed
       - name: test
         run: vendor/bin/phpunit

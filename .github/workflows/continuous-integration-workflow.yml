@@ -19,7 +19,7 @@ jobs:
         - "./:/app"
         - ./docker/php/php.ini:/usr/local/etc/php/php.ini
       ports:
-        - 8080:8080
+        - 8080
     services:
       nginx:
         image: nginx:1.17.8-alpine
@@ -27,7 +27,7 @@ jobs:
           - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
           - "./public:/app/public"
         ports:
-        - "80:80"
+        - 80
       mysql:
         image: mysql:5.7
         env:
@@ -36,17 +36,17 @@ jobs:
           MYSQL_DATABASE: bootstrap4-sample
           MYSQL_PASSWORD: root
         ports:
-          - "3306:3306"
+          - 3306
         volumes:
           - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
       redis:
         image: redis:5.0.7-alpine
         ports:
-          - "6379:6379"
+          - 6379
       selenium:
         image: selenium/standalone-chrome
         ports:
-          - "4444:4444"
+          - 4444
     steps:
       - uses: actions/checkout@v2
       - name: composer install

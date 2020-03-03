@@ -1,19 +1,56 @@
-name: Greet Everyone
-# This workflow is triggered on pushes to the repository.
+name: bootstrap4-sample-test
 on: [push]
 
 jobs:
   build:
-    # Job name is Greeting
-    name: Greeting
+    name: laravel-app-build
     # This job runs on Linux
     runs-on: ubuntu-latest
     container: 
       image: 708u/laravel-alpine:7.4.3
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: mysql
+        CACHE_DRIVER: redis
+        QUEUE_CONNECTION: redis
+        SESSION_DRIVER: redis
+        REDIS_HOST: edis
+      volumes:
+        - "./:/app"
+        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      ports:
+        - 8080:8080
+    services:
+      nginx:
+        image: nginx:1.17.8-alpine
+        volumes:
+          - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+          - "./public:/app/public"
+        ports:
+        - "80:80"
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: root
+          MYSQL_DATABASE: bootstrap4-sample
+          MYSQL_PASSWORD: root
+        ports:
+          - "3306:3306"
+        volumes:
+          - "mysql-store:/var/lib/mysql"
+          - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
+      redis:
+        image: redis:5.0.7-alpine
+        ports:
+          - "6379:6379"
+        volumes:
+          - "redis-store:/data"
+      selenium:
+        image: selenium/standalone-chrome
+        ports:
+          - "4444:4444"
     steps:
       - uses: actions/checkout@v2
-      # This step prints an output (time) from the previous step's action.
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
-      - name: composer test 
-        run: composer dump-autoload
+      - name: composer install
+        run: composer install

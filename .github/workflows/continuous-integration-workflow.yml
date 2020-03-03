@@ -51,6 +51,8 @@ jobs:
           - 4444
     steps:
       - uses: actions/checkout@v2
+      - name: copy .env
+        run: cp .env.example .env
       - name: composer install
         run: composer install
       - name: key generate

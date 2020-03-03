@@ -60,5 +60,9 @@ jobs:
         run: php artisan key:generate
 #       - name: migrate
 #         run: php artisan migrate --seed
+      - name: e2e
+        run: |
+          php artisan dusk:install 
+          php artisan dusk
       - name: test
         run: vendor/bin/phpunit

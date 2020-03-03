@@ -10,7 +10,7 @@ jobs:
       image: 708u/laravel-alpine:7.4.3
       env:
         APP_ENV: testing
-        APP_URL: http://localhost
+        APP_URL: http://127.0.0.1:8000
         DB_CONNECTION: mysql
         DB_HOST: mysql
         CACHE_DRIVER: redis
@@ -70,6 +70,8 @@ jobs:
         run: composer install
       - name: key generate
         run: php artisan key:generate
+      - name: php server
+        run: php artisan serve
 #       - name: migrate
 #         run: php artisan migrate --seed
 #       - name: e2e

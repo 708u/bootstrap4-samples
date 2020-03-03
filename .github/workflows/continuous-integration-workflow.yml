@@ -55,6 +55,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: copy .env
         run: cp .env.example .env
+      - name: Cache composer vendor
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-composer-vendor
+        with:
+          path: ~/.vendor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: composer install
         run: composer install
       - name: key generate

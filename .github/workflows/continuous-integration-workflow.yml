@@ -6,74 +6,79 @@ jobs:
     name: laravel-app-build
     # This job runs on Linux
     runs-on: ubuntu-latest
-    container: 
-      image: 708u/laravel-alpine:7.4.3
-      env:
-        APP_ENV: testing
-        APP_URL: http://127.0.0.1:8000
-        DB_CONNECTION: mysql
-        DB_HOST: mysql
-        CACHE_DRIVER: redis
-        QUEUE_CONNECTION: redis
-        SESSION_DRIVER: redis
-        REDIS_HOST: redis
-        DUSK_HOST: http://nginx
-        TELESCOPE_ENABLED: false
-      volumes:
-        - "./:/app"
-        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      ports:
-        - 8080
-    services:
-      nginx:
-        image: nginx:1.17.8-alpine
-        volumes:
-          - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
-          - "./public:/app/public"
-        ports:
-        - 80
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_USER: root
-          MYSQL_DATABASE: bootstrap4-sample
-          MYSQL_PASSWORD: root
-        ports:
-          - 3306
-        volumes:
-          - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
-      redis:
-        image: redis:5.0.7-alpine
-        ports:
-          - 6379
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444
+#     container: 
+#       image: 708u/laravel-alpine:7.4.3
+#       env:
+#         APP_ENV: testing
+#         APP_URL: http://127.0.0.1:8000
+#         DB_CONNECTION: mysql
+#         DB_HOST: mysql
+#         CACHE_DRIVER: redis
+#         QUEUE_CONNECTION: redis
+#         SESSION_DRIVER: redis
+#         REDIS_HOST: redis
+#         DUSK_HOST: http://nginx
+#         TELESCOPE_ENABLED: false
+#       volumes:
+#         - "./:/app"
+#         - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+#       ports:
+#         - 8080
+#     services:
+#       nginx:
+#         image: nginx:1.17.8-alpine
+#         volumes:
+#           - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+#           - "./public:/app/public"
+#         ports:
+#         - 80
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_ROOT_PASSWORD: root
+#           MYSQL_USER: root
+#           MYSQL_DATABASE: bootstrap4-sample
+#           MYSQL_PASSWORD: root
+#         ports:
+#           - 3306
+#         volumes:
+#           - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
+#       redis:
+#         image: redis:5.0.7-alpine
+#         ports:
+#           - 6379
+#       selenium:
+#         image: selenium/standalone-chrome
+#         ports:
+#           - 4444
     steps:
       - uses: actions/checkout@v2
       - name: copy .env
         run: cp .env.example .env
-      - name: Cache composer vendor
-        uses: actions/cache@v1
-        env:
-          cache-name: cache-composer-vendor
-        with:
-          path: ~/vendor
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: composer install
-        run: composer install
-      - name: key generate
-        run: php artisan key:generate
+    　- name: install
+  　    run: make install
+  　  - name: test
+        run: make test
+
+#       - name: Cache composer vendor
+#         uses: actions/cache@v1
+#         env:
+#           cache-name: cache-composer-vendor
+#         with:
+#           path: ~/vendor
+#           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-build-${{ env.cache-name }}-
+#             ${{ runner.os }}-build-
+#             ${{ runner.os }}-
+#       - name: composer install
+#         run: composer install
+#       - name: key generate
+#         run: php artisan key:generate
 #       - name: migrate
 #         run: php artisan migrate --seed
 #       - name: e2e
 #         run: |
 #           php artisan dusk
-      - name: test
-        run: vendor/bin/phpunit
+#       - name: test
+#         run: vendor/bin/phpunit

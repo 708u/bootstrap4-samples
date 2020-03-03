@@ -9,12 +9,14 @@ jobs:
     container: 
       image: 708u/laravel-alpine:7.4.3
       env:
+        APP_ENV: testing
         DB_CONNECTION: mysql
         DB_HOST: mysql
         CACHE_DRIVER: redis
         QUEUE_CONNECTION: redis
         SESSION_DRIVER: redis
-        REDIS_HOST: edis
+        REDIS_HOST: redis
+        DUSK_HOST: http://nginx
       volumes:
         - "./:/app"
         - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -51,3 +53,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: composer install
         run: composer install
+      - name: key generate
+        run: php artisan key:generate
+      - name: migrate
+        run: php artisan migrate --seed
+      - name: test
+        run: vendor/bin/phpunit

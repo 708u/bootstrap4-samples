@@ -70,8 +70,6 @@ jobs:
         run: composer install
       - name: key generate
         run: php artisan key:generate
-      - name: php server
-        run: php artisan serve
 #       - name: migrate
 #         run: php artisan migrate --seed
 #       - name: e2e

@@ -43,6 +43,7 @@ jobs:
           - 3306
         volumes:
           - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
       redis:
         image: redis:5.0.7-alpine
         ports:
@@ -67,8 +68,8 @@ jobs:
             ${{ runner.os }}-
       - run: composer install
       - run: php artisan key:generate
-#       - name: migrate
-#         run: php artisan migrate --seed
+      - run: php artisan migrate --seed
+      - run: docker-compose restart
       - name: test
         run: vendor/bin/phpunit
       - name: Archive screenshots

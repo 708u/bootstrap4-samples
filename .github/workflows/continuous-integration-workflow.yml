@@ -78,8 +78,8 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
 #       - run: composer install
-      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 composer create-project --prefer-dist laravel/laravel src
-      - run: php artisan key:generate
+      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 composer install
+      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 php artisan key:generate
       - name: Waiting for MySQL to be ready
         run : |
           for i in `seq 1 10`;
@@ -88,8 +88,8 @@ jobs:
             echo -n .
             sleep 1
           done
-      - run: php artisan migrate --seed
-      - run: vendor/bin/phpunit
+      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 php artisan migrate --seed
+      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

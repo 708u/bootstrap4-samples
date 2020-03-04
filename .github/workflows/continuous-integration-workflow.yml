@@ -35,10 +35,9 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_USER: root
           MYSQL_DATABASE: bootstrap4-sample
-          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: "%"
         ports:
           - 3306
         volumes:
@@ -63,7 +62,7 @@ jobs:
       - run: php artisan key:generate
       - name: Waiting for MySQL to be ready
         run : |
-          for i in `seq 1 120`;
+          for i in `seq 1 `;
           do
             nc -z localhost 3306 && echo Success && exit 0
             echo -n .

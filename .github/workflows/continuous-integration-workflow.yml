@@ -61,15 +61,16 @@ jobs:
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
       - run: php artisan key:generate
-      - name: Waiting for MySQL to be ready
-        run : |
-          for i in `seq 1 30`;
-          do
-            nc -z localhost 3306 && echo Success && exit 0
-            echo -n .
-            sleep 1
-          done
-          echo Failed waiting for MySQL && exit 1
+#       - name: Waiting for MySQL to be ready
+#         run : |
+#           for i in `seq 1 30`;
+#           do
+#             nc -z localhost 3306 && echo Success && exit 0
+#             echo -n .
+#             sleep 1
+#           done
+#           echo Failed waiting for MySQL && exit 1
+      - run: dockerize -wait tcp://localhost:3306 -timeout 2m
       - run: php artisan migrate --seed
       - run: vendor/bin/phpunit
       - name: Archive screenshots

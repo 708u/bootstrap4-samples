@@ -78,8 +78,8 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
 #       - run: composer install
-      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 composer install
-      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 php artisan key:generate
+      - run: docker run --rm -v ${PWD}:/var/www/html 708u/laravel-alpine:7.4.3 composer install
+      - run: docker run --rm -v ${PWD}:/var/www/html 708u/laravel-alpine:7.4.3 php artisan key:generate
       - name: Waiting for MySQL to be ready
         run : |
           for i in `seq 1 10`;

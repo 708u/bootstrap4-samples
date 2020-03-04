@@ -64,8 +64,8 @@ services:
       MYSQL_USER: ${DB_USERNAME:-laravel}
       MYSQL_DATABASE: ${DB_DATABASE:-laravel}
       MYSQL_PASSWORD: ${DB_PASSWORD:-root}
-    # ports:
-    #   - "3306:3306"
+    ports:
+      - "3306:3306"
     volumes:
       - "mysql-store:/var/lib/mysql"
       - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"

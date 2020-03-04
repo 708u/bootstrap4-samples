@@ -43,7 +43,6 @@ jobs:
           - 3306
         volumes:
           - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
-        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
       redis:
         image: redis:5.0.7-alpine
         ports:
@@ -57,21 +56,14 @@ jobs:
       - run: cp .env.example .env
       - name: Cache composer vendor
         uses: actions/cache@v1
-        env:
-          cache-name: cache-composer-vendor
         with:
-          path: ~/vendor
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          path: vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
       - run: php artisan key:generate
       - run: php artisan migrate --seed
       - run: docker-compose restart
-      - name: test
-        run: vendor/bin/phpunit
+      - run: vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

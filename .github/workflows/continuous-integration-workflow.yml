@@ -68,7 +68,7 @@ jobs:
       #       echo -n .
       #       sleep 1
       #     done
-      - run: docker run --rm -it -v $PWD:/app nginx:1.17.8-alpine ls app/public/
+      - run: docker run --rm -v $PWD:/app nginx:1.17.8-alpine ls app/public/
       - run: php artisan migrate --seed
       - run: vendor/bin/phpunit
       - name: Archive screenshots

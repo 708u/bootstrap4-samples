@@ -35,7 +35,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_DATABASE: bootstrap4-sample
+          MYSQL_DATABASE: bootstrap-sample
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ROOT_HOST: "%"
 #         ports:

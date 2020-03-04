@@ -27,9 +27,9 @@ jobs:
     services:
       nginx:
         image: nginx:1.17.8-alpine
-        # volumes:
-          # - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
-          # - "./public:/app/public"
+        volumes:
+          - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+          - "./public:/app/public"
         ports:
         - 80
       mysql:
@@ -53,6 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
+      - run: curl http://localhost/healthcheck
       - name: Cache composer vendor
         uses: actions/cache@v1
         with:

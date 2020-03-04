@@ -27,7 +27,7 @@ jobs:
     services:
       nginx:
         image: nginx:1.17.8-alpine
-        # volumes:
+        volumes:
           - /docker/nginx/nginx.conf:/etc/nginx/nginx.conf
           - /public:/app/public
         # options:

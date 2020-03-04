@@ -59,7 +59,7 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
-      - run: php artisan serve > /dev/null 2>&1 &
+      - run: php artisan serve --host=127.0.0.1 --port=8000 > /dev/null 2>&1 &
       - run: php artisan key:generate
       - name: Waiting for MySQL to be ready
         run : |
@@ -76,7 +76,4 @@ jobs:
         if: always()
         with:
           name: e2e-screenshots
-          path: tests/Browser/screenshot
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v1
-        if: always()
+          path: tests/Browser/screenshots

@@ -68,8 +68,8 @@ jobs:
             echo -n .
             sleep 1
           done
-      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 php artisan migrate --seed
-      - run: docker run --rm -v ${PWD}:/app 708u/laravel-alpine:7.4.3 vendor/bin/phpunit
+      - run: php artisan migrate --seed
+      - run: vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

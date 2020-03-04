@@ -61,7 +61,6 @@ jobs:
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
       - run: php artisan key:generate
-      - run: php artisan migrate --seed
       - name: Waiting for MySQL to be ready
         run : |
           for i in `seq 1 10`;
@@ -71,6 +70,7 @@ jobs:
             sleep 1
           done
           echo Failed waiting for MySQL && exit 1
+      - run: php artisan migrate --seed
       - run: vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1

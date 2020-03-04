@@ -73,6 +73,7 @@ jobs:
         run: vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
+        if: always()
         with:
           name: e2e-screenshots
           path: tests/Browser/screeenshots/

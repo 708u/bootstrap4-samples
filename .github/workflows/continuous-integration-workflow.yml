@@ -6,25 +6,44 @@ jobs:
     name: laravel-app-build
     # This job runs on Linux
     runs-on: ubuntu-latest
-    container: 
-      image: 708u/laravel-alpine:7.4.3
-      env:
-        APP_ENV: testing
-        APP_URL: http://localhost
-        DB_CONNECTION: mysql
-        DB_HOST: mysql
-        CACHE_DRIVER: redis
-        QUEUE_CONNECTION: redis
-        SESSION_DRIVER: redis
-        REDIS_HOST: redis
-        DUSK_HOST: http://nginx
-        TELESCOPE_ENABLED: false
-      volumes:
-        - "./:/app"
-        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      ports:
-        - 8080
+#     container: 
+#       image: 708u/laravel-alpine:7.4.3
+#       env:
+#         APP_ENV: testing
+#         APP_URL: http://localhost
+#         DB_CONNECTION: mysql
+#         DB_HOST: mysql
+#         CACHE_DRIVER: redis
+#         QUEUE_CONNECTION: redis
+#         SESSION_DRIVER: redis
+#         REDIS_HOST: redis
+#         DUSK_HOST: http://nginx
+#         TELESCOPE_ENABLED: false
+#       volumes:
+#         - "./:/app"
+#         - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+#       ports:
+#         - 8080
     services:
+      app:
+        image: 708u/laravel-alpine:7.4.3
+        env:
+          APP_ENV: testing
+          APP_URL: http://localhost
+          DB_CONNECTION: mysql
+          DB_HOST: mysql
+          CACHE_DRIVER: redis
+          QUEUE_CONNECTION: redis
+          SESSION_DRIVER: redis
+          REDIS_HOST: redis
+          DUSK_HOST: http://nginx
+          TELESCOPE_ENABLED: false
+        volumes:
+          - "./:/app"
+          - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+        ports:
+          - 8080
+         
       nginx:
         image: nginx:1.17.8-alpine
         volumes:

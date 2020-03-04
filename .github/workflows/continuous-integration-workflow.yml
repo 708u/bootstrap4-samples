@@ -75,10 +75,10 @@ jobs:
       #   if: always()
       #   with:
       #     name: e2e-screenshots
-      #     path: tests/Browser/screenshots
+      #     path: tests/Browser/screenshot
   test:
     runs-on: ubuntu-latest
-      container:
+    container:
       image: 708u/laravel-alpine:7.4.3
       env:
         APP_ENV: testing
@@ -96,5 +96,5 @@ jobs:
         - ./docker/php/php.ini:/usr/local/etc/php/php.ini
       ports:
         - 8080
-      steps:
-        run: echo "foo"
+    steps:
+      - run: echo "foo"

@@ -6,24 +6,24 @@ jobs:
     name: laravel-app-build
     # This job runs on Linux
     runs-on: ubuntu-latest
-    container:
-      image: 708u/laravel-alpine:7.4.3
-      env:
-        APP_ENV: testing
-        APP_URL: http://localhost
-        DB_CONNECTION: mysql
-        DB_HOST: mysql
-        CACHE_DRIVER: redis
-        QUEUE_CONNECTION: redis
-        SESSION_DRIVER: redis
-        REDIS_HOST: redis
-        DUSK_HOST: http://nginx
-        TELESCOPE_ENABLED: false
-      volumes:
-        - "./:/app"
-        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      ports:
-        - 8080
+    # container:
+    #   image: 708u/laravel-alpine:7.4.3
+    #   env:
+    #     APP_ENV: testing
+    #     APP_URL: http://localhost
+    #     DB_CONNECTION: mysql
+    #     DB_HOST: mysql
+    #     CACHE_DRIVER: redis
+    #     QUEUE_CONNECTION: redis
+    #     SESSION_DRIVER: redis
+    #     REDIS_HOST: redis
+    #     DUSK_HOST: http://nginx
+    #     TELESCOPE_ENABLED: false
+    #   volumes:
+    #     - "./:/app"
+    #     - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    #   ports:
+    #     - 8080
     services:
       nginx:
         image: nginx:1.17.8-alpine
@@ -31,43 +31,43 @@ jobs:
           - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
           - "./public:/app/public"
         ports:
-        - 80
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: bootstrap-sample
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_ROOT_HOST: "%"
-        ports:
-          - 3306
-        volumes:
-          - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
-      redis:
-        image: redis:5.0.7-alpine
-        ports:
-          - 6379
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444
+          - 80
+      # mysql:
+      #   image: mysql:5.7
+      #   env:
+      #     MYSQL_DATABASE: bootstrap-sample
+      #     MYSQL_ROOT_PASSWORD: root
+      #     MYSQL_ROOT_HOST: "%"
+      #   ports:
+      #     - 3306
+      #   volumes:
+      #     - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
+      # redis:
+      #   image: redis:5.0.7-alpine
+      #   ports:
+      #     - 6379
+      # selenium:
+      #   image: selenium/standalone-chrome
+      #   ports:
+      #     - 4444
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
-      - name: Cache composer vendor
-        uses: actions/cache@v1
-        with:
-          path: vendor
-          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
-      - run: composer install
-      - run: php artisan key:generate
-      - name: Waiting for MySQL to be ready
-        run : |
-          for i in `seq 1 10`;
-          do
-            nc -z localhost mysql && echo Success && exit 0
-            echo -n .
-            sleep 1
-          done
+      # - name: Cache composer vendor
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: vendor
+      #     key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+      # - run: composer install
+      # - run: php artisan key:generate
+      # - name: Waiting for MySQL to be ready
+      #   run : |
+      #     for i in `seq 1 10`;
+      #     do
+      #       nc -z localhost mysql && echo Success && exit 0
+      #       echo -n .
+      #       sleep 1
+      #     done
       - run: docker run --rm -it -v $PWD:/app nginx:1.17.8-alpine ls app/public/
       - run: php artisan migrate --seed
       - run: vendor/bin/phpunit

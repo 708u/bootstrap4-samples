@@ -76,4 +76,4 @@ jobs:
         if: always()
         with:
           name: e2e-screenshots
-          path: tests/Browser/screeenshots/
+          path: tests/Browser/screenshots

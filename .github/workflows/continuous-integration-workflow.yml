@@ -53,6 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
+      - run: curl http://localhost
       - name: Cache composer vendor
         uses: actions/cache@v1
         with:

@@ -17,7 +17,7 @@ jobs:
         QUEUE_CONNECTION: redis
         SESSION_DRIVER: redis
         REDIS_HOST: redis
-        DUSK_HOST: http://nginx
+        DUSK_HOST: http://localhost
         TELESCOPE_ENABLED: false
       volumes:
         - "./:/app"

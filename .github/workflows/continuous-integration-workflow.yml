@@ -20,12 +20,12 @@ jobs:
         DUSK_HOST: http://nginx
         TELESCOPE_ENABLED: false
     services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: bootstrap-sample
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_ROOT_HOST: "%"
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_DATABASE: bootstrap-sample
+#           MYSQL_ROOT_PASSWORD: root
+#           MYSQL_ROOT_HOST: "%"
       redis:
         image: redis:5.0.7-alpine
       selenium:
@@ -41,15 +41,15 @@ jobs:
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
       - run: php artisan key:generate
-      - name: Waiting for MySQL to be ready
-        run : |
-          for i in `seq 1 10`;
-          do
-            nc -z localhost mysql && echo Success && exit 0
-            echo -n .
-            sleep 1
-          done
-      - run: php artisan migrate --seed
+#       - name: Waiting for MySQL to be ready
+#         run : |
+#           for i in `seq 1 10`;
+#           do
+#             nc -z localhost mysql && echo Success && exit 0
+#             echo -n .
+#             sleep 1
+#           done
+#       - run: php artisan migrate --seed
       - run: vendor/bin/phpunit
       - name: Archive screenshots
         uses: actions/upload-artifact@v1

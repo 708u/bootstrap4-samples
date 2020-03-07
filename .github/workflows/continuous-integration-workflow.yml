@@ -7,7 +7,7 @@ jobs:
     # This job runs on Linux
     runs-on: ubuntu-latest
     container:
-      image: 708u/laravel-alpine:7.4.3
+      image: 708u/laravel-alpine:7.4.3-node-browser
       env:
         APP_ENV: testing
         APP_URL: http://localhost
@@ -19,8 +19,6 @@ jobs:
         REDIS_HOST: redis
         DUSK_HOST: http://nginx
         TELESCOPE_ENABLED: false
-      volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock"
     services:
 #       mysql:
 #         image: mysql:5.7
@@ -28,11 +26,10 @@ jobs:
 #           MYSQL_DATABASE: bootstrap-sample
 #           MYSQL_ROOT_PASSWORD: root
 #           MYSQL_ROOT_HOST: "%"
-      node:
-        image: node:13.8.0-alpine
-        volumes:
-          - "./:/app:cached"
-          - "/var/run/docker.sock:/var/run/docker.sock"
+#       node:
+#         image: node:13.8.0-alpine
+#         volumes:
+#           - "./:/app:cached"
       redis:
         image: redis:5.0.7-alpine
       selenium:
@@ -47,6 +44,8 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
+      - run: yarn
+      - run: yarn dev
       - run: php artisan key:generate
 #       - name: Waiting for MySQL to be ready
 #         run : |

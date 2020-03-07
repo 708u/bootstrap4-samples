@@ -19,8 +19,6 @@ jobs:
         REDIS_HOST: redis
         DUSK_HOST: http://nginx
         TELESCOPE_ENABLED: false
-      ports:
-        - 8080
     services:
       mysql:
         image: mysql:5.7
@@ -28,18 +26,10 @@ jobs:
           MYSQL_DATABASE: bootstrap-sample
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ROOT_HOST: "%"
-        ports:
-          - 3306
-        volumes:
-          - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"
       redis:
         image: redis:5.0.7-alpine
-        ports:
-          - 6379
       selenium:
         image: selenium/standalone-chrome
-        ports:
-          - 4444
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env

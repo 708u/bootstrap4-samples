@@ -57,3 +57,10 @@ jobs:
         with:
           name: e2e-screenshots
           path: tests/Browser/screenshots
+          
+      - name: Archive laravel log
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: laravel-log
+          path: storage/logs

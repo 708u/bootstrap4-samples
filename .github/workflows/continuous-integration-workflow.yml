@@ -19,6 +19,8 @@ jobs:
         REDIS_HOST: redis
         DUSK_HOST: http://nginx
         TELESCOPE_ENABLED: false
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
     services:
 #       mysql:
 #         image: mysql:5.7
@@ -26,6 +28,11 @@ jobs:
 #           MYSQL_DATABASE: bootstrap-sample
 #           MYSQL_ROOT_PASSWORD: root
 #           MYSQL_ROOT_HOST: "%"
+      node:
+        image: node:13.8.0-alpine
+        volumes:
+          - "./:/app:cached"
+          - "/var/run/docker.sock:/var/run/docker.sock"
       redis:
         image: redis:5.0.7-alpine
       selenium:
@@ -33,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
-      - run: ls
+      - run: docker exec -it node yarn
       - name: Cache composer vendor
         uses: actions/cache@v1
         with:

@@ -26,10 +26,6 @@ jobs:
           MYSQL_DATABASE: bootstrap-sample
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ROOT_HOST: "%"
-      node:
-        image: node:13.8.0-alpine
-        volumes:
-          - "./:/app:cached"
       redis:
         image: redis:5.0.7-alpine
       selenium:
@@ -57,7 +53,7 @@ jobs:
       - run: yarn prod
       - run: php artisan key:generate
       - run: vendor/bin/phpunit
-      - run: php artisan dusk
+#       - run: php artisan dusk
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

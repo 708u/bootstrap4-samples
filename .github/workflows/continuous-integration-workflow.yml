@@ -53,14 +53,13 @@ jobs:
       - run: yarn prod
       - run: php artisan key:generate
       - run: vendor/bin/phpunit
-#       - run: php artisan dusk
+      - run: php artisan dusk
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()
         with:
           name: e2e-screenshots
           path: tests/Browser/screenshots
-          
       - name: Archive laravel log
         uses: actions/upload-artifact@v1
         if: always()

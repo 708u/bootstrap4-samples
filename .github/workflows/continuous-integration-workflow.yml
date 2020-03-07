@@ -20,20 +20,24 @@ jobs:
         DUSK_HOST: http://nginx
         TELESCOPE_ENABLED: false
     services:
-#       mysql:
-#         image: mysql:5.7
-#         env:
-#           MYSQL_DATABASE: bootstrap-sample
-#           MYSQL_ROOT_PASSWORD: root
-#           MYSQL_ROOT_HOST: "%"
-#       node:
-#         image: node:13.8.0-alpine
-#         volumes:
-#           - "./:/app:cached"
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: bootstrap-sample
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: "%"
+      node:
+        image: node:13.8.0-alpine
+        volumes:
+          - "./:/app:cached"
       redis:
         image: redis:5.0.7-alpine
       selenium:
         image: selenium/standalone-chrome
+      nginx:
+        image: 708u/laravel-nginx
+        ports:
+          - 80:80
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
@@ -44,7 +48,7 @@ jobs:
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
       - run: composer install
       - run: yarn
-      - run: yarn dev
+      - run: yarn prod
       - run: php artisan key:generate
 #       - name: Waiting for MySQL to be ready
 #         run : |
@@ -56,6 +60,7 @@ jobs:
 #           done
 #       - run: php artisan migrate --seed
       - run: vendor/bin/phpunit
+      - run: php artisan dusk
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

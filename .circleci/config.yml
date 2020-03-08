@@ -71,7 +71,13 @@ jobs:
           command: chromedriver --whitelisted-ips
           background: true
       - run:
-          command: php artisan service
+          command: php artisan serve
           background: true
       - run: php artisan dusk
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
 

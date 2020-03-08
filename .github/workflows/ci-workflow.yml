@@ -30,7 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
-      - run: php artisan key:generate
 
       # Install dependencies
       - name: Cache composer vendor
@@ -45,6 +44,8 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - run: yarn
+
+      - run: php artisan key:generate
       - run: yarn prod
 
       # Unit test

@@ -44,7 +44,12 @@ jobs:
       - run: yarn
       - run: yarn prod
       - run: php artisan key:generate
+      - run: php artisan migrate
+
+      # Unit test
       - run: vendor/bin/phpunit
+
+      # E2E test
       - run: chromedriver --whitelisted-ips > /dev/null 2>&1 &
       - run: php artisan serve > /dev/null 2>&1 &
       - run: php artisan dusk

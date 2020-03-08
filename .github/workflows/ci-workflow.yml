@@ -30,6 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cp .env.example .env
+
+      # Install dependencies
       - name: Cache composer vendor
         uses: actions/cache@v1
         with:
@@ -42,12 +44,20 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
       - run: yarn
-      - run: yarn prod
+
       - run: php artisan key:generate
+      - run: yarn prod
+
+      # Unit test
+      - run: php artisan migrate
       - run: vendor/bin/phpunit
+
+      # E2E test
       - run: chromedriver --whitelisted-ips > /dev/null 2>&1 &
       - run: php artisan serve > /dev/null 2>&1 &
       - run: php artisan dusk
+
+      # Archive Artifacts
       - name: Archive screenshots
         uses: actions/upload-artifact@v1
         if: always()

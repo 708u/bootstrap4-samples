@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: 708u/laravel-alpine:7.4.3-node-browsers
+      - image: 708u/laravel-alpine:7.4.3-node-browser
 
       # Specify service dependencies here if necessary
       - image: circleci/mysql:5.7-ram

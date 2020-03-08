@@ -1,0 +1,79 @@
+version: 2
+jobs:
+  integration-test:
+    docker:
+      # Specify the version you desire here
+      - image: 708u/laravel-alpine:7.4.3-node-browser
+
+      # Specify service dependencies here if necessary
+      - image: circleci/mysql:5.7-ram
+        env:
+          MYSQL_DATABASE: bootstrap-sample
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: "%"
+      - image: redis:5.0.7-alpine
+
+    working_directory: /app
+    environment:
+      APP_ENV: testing
+      APP_URL: http://localhost
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DATABASE: bootstrap-sample
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+      REDIS_HOST: 127.0.0.1
+      DUSK_BASE_URL: http://localhost:8000
+      CHROME_DRIVER_HOST: http://localhost:9515
+      TELESCOPE_ENABLED: false
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
+
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run: yarn prod
+
+      - run: php artisan key:generate
+
+      # For unit test.
+      - run: php artisan migrate
+      - run: ./vendor/bin/phpunit
+
+      # For E2E test.
+      - run:
+          command: chromedriver --whitelisted-ips
+          background: true
+      - run:
+          command: php artisan serve
+          background: true
+      - run: php artisan dusk
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - integration-test

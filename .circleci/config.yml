@@ -68,10 +68,10 @@ jobs:
 
       # For E2E test.
       - run:
-        command: chromedriver --whitelisted-ips
-        background: true
+          command: chromedriver --whitelisted-ips
+          background: true
       - run:
-        command: php artisan service
-        background: true
+          command: php artisan service
+          background: true
       - run: php artisan dusk
 
